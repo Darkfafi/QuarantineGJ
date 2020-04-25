@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using RasofiaGames.SimpleUnityECS;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class PlatformerMov2D : MonoBehaviour
+public class PlatformerMov2D : EntityComponent
 {
 	public enum Direction
 	{
-		None = 0,
 		Left = -1,
 		Right = 1
 	}
@@ -27,38 +27,11 @@ public class PlatformerMov2D : MonoBehaviour
 
 	public bool IsGrounded => _currentFloor != null;
 
-	protected void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		_rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
 		_collider2D = gameObject.GetComponent<Collider2D>();
-	}
-
-	protected void Update()
-	{
-		bool leftPressed = Input.GetKey(KeyCode.A);
-		bool rightPressed = Input.GetKey(KeyCode.D);
-
-		if(leftPressed || rightPressed)
-		{
-			if(leftPressed)
-			{
-				Move(Direction.Left);
-			}
-
-			if(rightPressed)
-			{
-				Move(Direction.Right);
-			}
-		}
-		else
-		{
-			Stop();
-		}
-
-		if(Input.GetKeyDown(KeyCode.W))
-		{
-			Jump();
-		}
 	}
 
 	public void Move(Direction direction)
@@ -68,6 +41,10 @@ public class PlatformerMov2D : MonoBehaviour
 			Vector2 vel = _rigidbody2D.velocity;
 			vel.x = ((int)direction) * _moveSpeed;
 			_rigidbody2D.velocity = vel;
+
+			Vector3 scale = transform.localScale;
+			scale.x = Mathf.Abs(scale.x) * (int)direction;
+			transform.localScale = scale;
 		}
 		else
 		{
