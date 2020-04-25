@@ -11,6 +11,9 @@ public class Projectile : EntityComponent
 		Hit
 	}
 
+	[SerializeField]
+	private int _damageAmount = 1;
+
 	// Values
 	private Vector2 _projectileVelocity;
 
@@ -60,6 +63,22 @@ public class Projectile : EntityComponent
 			case TravelState.Hit:
 				Destroy(gameObject);
 				break;
+		}
+	}
+
+	protected void OnTriggerEnter2D(Collider2D collision)
+	{
+		CrystalDimension crystalDimension = collision.gameObject.GetComponent<CrystalDimension>();
+
+		if(crystalDimension == null || crystalDimension.CrystalDimensionID == CrystalID)
+		{
+			Health health = collision.gameObject.GetComponent<Health>();
+			if(health != null)
+			{
+				health.Damage(_damageAmount);
+			}
+
+			Destroy(gameObject);
 		}
 	}
 }

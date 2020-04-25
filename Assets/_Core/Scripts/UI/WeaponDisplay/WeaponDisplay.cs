@@ -53,7 +53,7 @@ public class WeaponDisplay : MonoBehaviour
 	{
 		if(_crystalItems.TryGetValue(crystalID, out CrystalItemData crystalItemData))
 		{
-			_currentCrystalAngle = GetAngleDelta(_crystalItems.Count) * crystalItemData.ItemIndex;
+			_currentCrystalAngle = 360f - GetAngleDelta(_crystalItems.Count) * crystalItemData.ItemIndex;
 		}
 	}
 
