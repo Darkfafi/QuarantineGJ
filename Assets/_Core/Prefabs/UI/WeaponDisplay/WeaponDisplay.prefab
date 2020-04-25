@@ -259,6 +259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeda83c652ab60747ab7a86d541977b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _crystalItemPrefab: {fileID: 61888560116648949, guid: c5cd4bf05b867394c8ebbdb6a7696fda,
+    type: 3}
+  _wheel: {fileID: 7831021748787707863}
+  _wheelRadius: 46
 --- !u!1001 &4702172193423221622
 PrefabInstance:
   m_ObjectHideFlags: 0

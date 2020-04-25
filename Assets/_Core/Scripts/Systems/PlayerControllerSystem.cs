@@ -50,6 +50,16 @@ public class PlayerControllerSystem : MonoBehaviour
 			{
 				playerEntity.GetEntityComponent<Weapon>().Shoot(Vector2.right * playerEntity.transform.localScale.x);
 			}
+
+			if(Input.GetKeyDown(KeyCode.Q))
+			{
+				playerEntity.GetEntityComponent<Weapon>().CycleToPreviousCrystal();
+			}
+
+			if(Input.GetKeyDown(KeyCode.E))
+			{
+				playerEntity.GetEntityComponent<Weapon>().CycleToNextCrystal();
+			}
 		});
 	}
 

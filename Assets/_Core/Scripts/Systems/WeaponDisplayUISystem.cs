@@ -1,4 +1,5 @@
 ﻿using RasofiaGames.SimpleUnityECS;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,9 @@ public class WeaponDisplayUISystem : MonoBehaviour
 		{
 			Vector3 worldToScreenSpace = _camera.WorldToScreenPoint(pair.Key.transform.position);
 			pair.Value.transform.position = worldToScreenSpace;
+			Vector3 scale = pair.Value.transform.localScale;
+			scale.x = Mathf.Abs(scale.x) * Mathf.Abs(pair.Key.transform.localScale.x) / pair.Key.transform.localScale.x;
+			pair.Value.transform.localScale = scale;
 		}
 	}
 
@@ -37,8 +41,14 @@ public class WeaponDisplayUISystem : MonoBehaviour
 	{
 		if(!_entityToWeaponDisplaysMap.ContainsKey(entity))
 		{
+			Weapon weapon = entity.GetEntityComponent<Weapon>();
 			WeaponDisplay weaponWheel = Instantiate(_weaponDisplayPrefab, _container);
 			_entityToWeaponDisplaysMap.Add(entity, weaponWheel);
+			weapon.SwitchedWeaponEvent += UpdateCurrentWeapon;
+
+			// Initially Set values
+			UpdateWheelItems(weapon);
+			UpdateCurrentWeapon(weapon);
 		}
 	}
 
@@ -46,11 +56,29 @@ public class WeaponDisplayUISystem : MonoBehaviour
 	{
 		if(_entityToWeaponDisplaysMap.TryGetValue(entity, out WeaponDisplay weaponDisplay))
 		{
+			Weapon weapon = entity.GetEntityComponent<Weapon>();
+			weapon.SwitchedWeaponEvent -= UpdateCurrentWeapon;
 			if(weaponDisplay != null)
 			{
 				Destroy(weaponDisplay.gameObject);
 				_entityToWeaponDisplaysMap.Remove(entity);
 			}
+		}
+	}
+
+	private void UpdateCurrentWeapon(Weapon weapon)
+	{
+		if(_entityToWeaponDisplaysMap.TryGetValue(weapon.Parent, out WeaponDisplay weaponDisplay))
+		{
+			weaponDisplay.SetCurrentCrystal(weapon.CurrentCrystalID);
+		}
+	}
+
+	private void UpdateWheelItems(Weapon weapon)
+	{
+		if(_entityToWeaponDisplaysMap.TryGetValue(weapon.Parent, out WeaponDisplay weaponDisplay))
+		{
+			weaponDisplay.SetCrystalItems(weapon.GetCrystalIDs());
 		}
 	}
 }

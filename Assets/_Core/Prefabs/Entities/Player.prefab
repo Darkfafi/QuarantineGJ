@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tags:
   - Player
+  - WeaponDisplay
 --- !u!114 &6423114185782543196
 MonoBehaviour:
   m_ObjectHideFlags: 0

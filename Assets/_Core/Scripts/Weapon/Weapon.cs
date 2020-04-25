@@ -1,10 +1,13 @@
-﻿using RasofiaGames.SimpleUnityECS;
+﻿using System;
+using RasofiaGames.SimpleUnityECS;
 using System.Collections.Generic;
 using UnityEngine;
 using static CrystalDataCollection;
 
 public class Weapon : EntityComponent
 {
+	public event Action<Weapon> SwitchedWeaponEvent;
+
 	[SerializeField]
 	private Transform _shootOrigin = null;
 
@@ -16,7 +19,9 @@ public class Weapon : EntityComponent
 	private List<CrystalID> _crystalIDs = new List<CrystalID>()
 	{
 		// Starting Crystal
-		CrystalID.Test,
+		CrystalID.Red,
+		CrystalID.Blue,
+		CrystalID.Yellow,
 	};
 
 	public CrystalID CurrentCrystalID => _crystalIDs[_crystalIndex];
@@ -32,5 +37,25 @@ public class Weapon : EntityComponent
 		projectileInstance.transform.position = _shootOrigin.transform.position;
 		projectileInstance.Init(CurrentCrystalID);
 		projectileInstance.Fire(direction, _projectileSpeed);
+	}
+
+	public void CycleToNextCrystal()
+	{
+		_crystalIndex = (_crystalIndex + 1) % _crystalIDs.Count;
+		SwitchedWeaponEvent?.Invoke(this);
+	}
+
+	public void CycleToPreviousCrystal()
+	{
+		if(_crystalIndex == 0)
+		{
+			_crystalIndex = _crystalIDs.Count - 1;
+		}
+		else
+		{
+			_crystalIndex--;
+		}
+
+		SwitchedWeaponEvent?.Invoke(this);
 	}
 }

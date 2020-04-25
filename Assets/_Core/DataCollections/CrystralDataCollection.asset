@@ -18,3 +18,12 @@ MonoBehaviour:
   - ID: 0
     CrystalColor: {r: 1, g: 0.08696676, b: 0, a: 1}
     ProjectilePrefabOverride: {fileID: 0}
+  - ID: 1
+    CrystalColor: {r: 0, g: 0.6812062, b: 1, a: 1}
+    ProjectilePrefabOverride: {fileID: 0}
+  - ID: 2
+    CrystalColor: {r: 1, g: 0.9606115, b: 0, a: 1}
+    ProjectilePrefabOverride: {fileID: 0}
+  - ID: 3
+    CrystalColor: {r: 1, g: 0.73973227, b: 0, a: 1}
+    ProjectilePrefabOverride: {fileID: 0}

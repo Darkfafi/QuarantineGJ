@@ -9,7 +9,10 @@ public class CrystalDataCollection : ScriptableObject
 {
 	public enum CrystalID
 	{
-		Test
+		Red,
+		Blue,
+		Yellow,
+		Orange
 	}
 
 	[SerializeField]
