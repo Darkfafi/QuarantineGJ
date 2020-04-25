@@ -38,8 +38,9 @@ public class Weapon : EntityComponent
 		_spriteColorSwap = gameObject.GetComponent<SpriteColorSwap>();
 	}
 
-	protected void Start()
+	protected override void Start()
 	{
+		base.Start();
 		SetCrystalColor();
 	}
 
