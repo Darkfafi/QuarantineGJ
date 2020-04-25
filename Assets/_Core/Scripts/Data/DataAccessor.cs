@@ -4,8 +4,18 @@ public class DataAccessor : MonoBehaviour
 {
 	public static DataAccessor Instance
 	{
-		get; private set;
+		get
+		{
+			if(_instance == null)
+			{
+				SetInstance(FindObjectOfType<DataAccessor>());
+			}
+
+			return _instance;
+		}
 	}
+
+	private static DataAccessor _instance = null;
 
 	[SerializeField]
 	private CrystalDataCollection _crystalDataCollection = null;
@@ -14,14 +24,27 @@ public class DataAccessor : MonoBehaviour
 
 	protected void Awake()
 	{
-		if(Instance == null)
+		SetInstance(this);
+	}
+
+	protected void OnDestroy()
+	{
+		if(this == _instance)
 		{
-			Instance = this;
-			DontDestroyOnLoad(gameObject);
+			_instance = null;
 		}
-		else
+	}
+
+	private static void SetInstance(DataAccessor dataAccessor)
+	{
+		if(_instance == null)
 		{
-			Destroy(gameObject);
+			_instance = dataAccessor;
+			DontDestroyOnLoad(dataAccessor.gameObject);
+		}
+		else if(_instance != dataAccessor)
+		{
+			Destroy(dataAccessor.gameObject);
 		}
 	}
 }

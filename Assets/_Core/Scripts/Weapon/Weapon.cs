@@ -15,6 +15,7 @@ public class Weapon : EntityComponent
 	private float _projectileSpeed = 5f;
 
 	private int _crystalIndex = 0;
+	private SpriteColorSwap _spriteColorSwap;
 
 	private List<CrystalID> _crystalIDs = new List<CrystalID>()
 	{
@@ -31,6 +32,17 @@ public class Weapon : EntityComponent
 		return _crystalIDs.ToArray();
 	}
 
+	protected override void Awake()
+	{
+		base.Awake();
+		_spriteColorSwap = gameObject.GetComponent<SpriteColorSwap>();
+	}
+
+	protected void Start()
+	{
+		SetCrystalColor();
+	}
+
 	public void Shoot(Vector2 direction)
 	{
 		Projectile projectileInstance = Instantiate(DataAccessor.Instance.CrystalDataCollection.GetProjectilePrefab(CurrentCrystalID));
@@ -42,6 +54,7 @@ public class Weapon : EntityComponent
 	public void CycleToNextCrystal()
 	{
 		_crystalIndex = (_crystalIndex + 1) % _crystalIDs.Count;
+		SetCrystalColor();
 		SwitchedWeaponEvent?.Invoke(this);
 	}
 
@@ -55,7 +68,15 @@ public class Weapon : EntityComponent
 		{
 			_crystalIndex--;
 		}
-
+		SetCrystalColor();
 		SwitchedWeaponEvent?.Invoke(this);
+	}
+
+	private void SetCrystalColor()
+	{
+		if(_spriteColorSwap != null)
+		{
+			_spriteColorSwap.SwapColor(1, DataAccessor.Instance.CrystalDataCollection.GetCrystalData(CurrentCrystalID).CrystalColor, 0);
+		}
 	}
 }

@@ -120,7 +120,7 @@ public class PlatformerMov2D : EntityComponent
 	{
 		for(int i = 0; i < collision.contacts.Length; i++)
 		{
-			if(_collider2D.bounds.center.y > collision.contacts[i].point.y && Mathf.Approximately(collision.contacts[i].normal.y, 1f))
+			if(_collider2D.bounds.center.y > collision.contacts[i].point.y && collision.contacts[i].normal.y > 0.8f)
 			{
 				return true;
 			}
