@@ -9,10 +9,10 @@ public class CrystalDataCollection : ScriptableObject
 {
 	public enum CrystalID
 	{
-		Red,
-		Blue,
-		Yellow,
-		Orange
+		Gem1,
+		Gem2,
+		Gem3,
+		Gem4
 	}
 
 	[SerializeField]

@@ -12,18 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b265537270890d0418c7b1a98028d26a, type: 3}
   m_Name: CrystralDataCollection
   m_EditorClassIdentifier: 
-  _defaultProjectilePrefab: {fileID: 8161982551468532874, guid: 2f17d275996d553438affb8bb0f7db10,
-    type: 3}
   _crystalData:
   - ID: 0
-    CrystalColor: {r: 1, g: 0.08696676, b: 0, a: 1}
-    ProjectilePrefabOverride: {fileID: 0}
+    CrystalColor: {r: 0, g: 0.7411765, b: 0.6666667, a: 1}
   - ID: 1
-    CrystalColor: {r: 0, g: 0.6812062, b: 1, a: 1}
-    ProjectilePrefabOverride: {fileID: 0}
+    CrystalColor: {r: 0.2509804, g: 0, b: 0.50980395, a: 1}
   - ID: 2
-    CrystalColor: {r: 1, g: 0.9606115, b: 0, a: 1}
-    ProjectilePrefabOverride: {fileID: 0}
+    CrystalColor: {r: 0.99607843, g: 0.20392157, b: 0.43137255, a: 1}
   - ID: 3
-    CrystalColor: {r: 1, g: 0.73973227, b: 0, a: 1}
-    ProjectilePrefabOverride: {fileID: 0}
+    CrystalColor: {r: 0.94509804, g: 0.90588236, b: 0.7137255, a: 1}

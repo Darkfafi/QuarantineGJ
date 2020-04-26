@@ -18,9 +18,9 @@ public class Weapon : EntityComponent
 	private List<CrystalID> _crystalIDs = new List<CrystalID>()
 	{
 		// Starting Crystal
-		CrystalID.Red,
-		CrystalID.Blue,
-		CrystalID.Yellow,
+		CrystalID.Gem1,
+		CrystalID.Gem2,
+		CrystalID.Gem3,
 	};
 
 	public CrystalID CurrentCrystalID => _crystalIDs[_crystalIndex];
