@@ -18,6 +18,11 @@ public class Health : EntityComponent
 		get; private set;
 	}
 
+	public void DestroyObject()
+	{
+		Destroy(gameObject);
+	}
+
 	protected override void Awake()
 	{
 		base.Awake();

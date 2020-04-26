@@ -6,9 +6,10 @@ using System;
 public class PlatformerMov2D : EntityComponent
 {
 	public event Action HitGroundEvent;
+	public event Action<Direction> SideHitEvent;
 	public event Action LeaveGroundEvent;
 
-	public enum Direction
+	public enum Direction : int
 	{
 		Left = -1,
 		Right = 1
@@ -105,6 +106,7 @@ public class PlatformerMov2D : EntityComponent
 		if(IsSideHit(collision, Direction.Right))
 		{
 			_rightCol = collision.transform;
+			SideHitEvent?.Invoke(Direction.Right);
 		}
 		else if(IsSideHit(Direction.Right) && _rightCol == collision.transform)
 		{
@@ -114,6 +116,7 @@ public class PlatformerMov2D : EntityComponent
 		if(IsSideHit(collision, Direction.Left))
 		{
 			_leftCol = collision.transform;
+			SideHitEvent?.Invoke(Direction.Left);
 		}
 		else if(IsSideHit(Direction.Left) && _leftCol == collision.transform)
 		{
