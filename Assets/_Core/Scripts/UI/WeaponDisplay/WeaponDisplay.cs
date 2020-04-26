@@ -3,8 +3,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using static CrystalDataCollection;
 
+
 public class WeaponDisplay : MonoBehaviour
 {
+	[SerializeField]
+	private CanvasGroup _canvasGroup = null;
+
+	[SerializeField]
+	private float _fadeSpeed = 5f;
+
 	[SerializeField]
 	private Image _crystalItemPrefab = null;
 
@@ -21,11 +28,23 @@ public class WeaponDisplay : MonoBehaviour
 
 	private Dictionary<CrystalID, CrystalItemData> _crystalItems = new Dictionary<CrystalID, CrystalItemData>();
 
+	protected void Awake()
+	{
+		_canvasGroup.alpha = 0f;
+	}
+
 	protected void Update()
 	{
 		Vector3 rotation = _wheel.localRotation.eulerAngles;
-		rotation.z = Mathf.LerpAngle(rotation.z, _currentCrystalAngle, Time.deltaTime * _rotationSpeed);
-		_wheel.localRotation = Quaternion.Euler(0f, 0f, rotation.z);
+		if(Mathf.Abs(Mathf.DeltaAngle(rotation.z, _currentCrystalAngle)) > 1f)
+		{
+			rotation.z = Mathf.LerpAngle(rotation.z, _currentCrystalAngle, Time.deltaTime * _rotationSpeed);
+			_wheel.localRotation = Quaternion.Euler(0f, 0f, rotation.z);
+		}
+		else
+		{
+			_canvasGroup.alpha = Mathf.Lerp(_canvasGroup.alpha, 0f, Time.deltaTime * _fadeSpeed);
+		}
 	}
 
 	public void SetCrystalItems(CrystalID[] crystalIDs)
@@ -54,6 +73,7 @@ public class WeaponDisplay : MonoBehaviour
 		if(_crystalItems.TryGetValue(crystalID, out CrystalItemData crystalItemData))
 		{
 			_currentCrystalAngle = 360f - GetAngleDelta(_crystalItems.Count) * crystalItemData.ItemIndex;
+			_canvasGroup.alpha = 1f;
 		}
 	}
 

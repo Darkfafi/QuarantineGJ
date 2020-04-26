@@ -31,9 +31,6 @@ public class WeaponDisplayUISystem : MonoBehaviour
 		{
 			Vector3 worldToScreenSpace = _camera.WorldToScreenPoint(pair.Key.transform.position);
 			pair.Value.transform.position = worldToScreenSpace;
-			Vector3 scale = pair.Value.transform.localScale;
-			scale.x = Mathf.Abs(scale.x) * Mathf.Abs(pair.Key.transform.localScale.x) / pair.Key.transform.localScale.x;
-			pair.Value.transform.localScale = scale;
 		}
 	}
 

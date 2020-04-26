@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 7831021749713627737}
   - component: {fileID: 7831021749713627742}
   - component: {fileID: -4683469328336505385}
+  - component: {fileID: 876426230161503739}
   m_Layer: 5
   m_Name: WeaponDisplay
   m_TagString: Untagged
@@ -259,10 +260,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeda83c652ab60747ab7a86d541977b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 876426230161503739}
+  _fadeSpeed: 6
   _crystalItemPrefab: {fileID: 61888560116648949, guid: c5cd4bf05b867394c8ebbdb6a7696fda,
     type: 3}
   _wheel: {fileID: 7831021748787707863}
   _wheelRadius: 46
+  _rotationSpeed: 6
+--- !u!225 &876426230161503739
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7831021749713627740}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &4702172193423221622
 PrefabInstance:
   m_ObjectHideFlags: 0
