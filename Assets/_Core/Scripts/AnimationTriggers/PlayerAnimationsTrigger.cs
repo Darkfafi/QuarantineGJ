@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(PlatformerMov2D), typeof(Weapon))]
 public class PlayerAnimationsTrigger : MonoBehaviour

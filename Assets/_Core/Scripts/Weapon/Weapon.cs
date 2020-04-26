@@ -1,5 +1,5 @@
-﻿using System;
-using RasofiaGames.SimpleUnityECS;
+﻿using RasofiaGames.SimpleUnityECS;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static CrystalDataCollection;
@@ -10,10 +10,7 @@ public class Weapon : EntityComponent
 	public event Action<Weapon> SwitchedWeaponEvent;
 
 	[SerializeField]
-	private Transform _shootOrigin = null;
-
-	[SerializeField]
-	private float _projectileSpeed = 5f;
+	private DamageHitbox _damageHitbox = null;
 
 	private int _crystalIndex = 0;
 	private SpriteColorSwap _spriteColorSwap;
@@ -45,12 +42,13 @@ public class Weapon : EntityComponent
 		SetCrystalColor();
 	}
 
+	public void DoDamage()
+	{
+		_damageHitbox.Damage();
+	}
+
 	public void Attack(Vector2 direction)
 	{
-		Projectile projectileInstance = Instantiate(DataAccessor.Instance.CrystalDataCollection.GetProjectilePrefab(CurrentCrystalID));
-		projectileInstance.transform.position = _shootOrigin.transform.position;
-		projectileInstance.Init(CurrentCrystalID);
-		projectileInstance.Fire(direction, _projectileSpeed);
 		AttackEvent?.Invoke(this);
 	}
 
@@ -77,6 +75,8 @@ public class Weapon : EntityComponent
 
 	private void SetCrystalColor()
 	{
+		_damageHitbox.SetCrystalID(CurrentCrystalID);
+		
 		if(_spriteColorSwap != null)
 		{
 			_spriteColorSwap.SwapColor(1, DataAccessor.Instance.CrystalDataCollection.GetCrystalData(CurrentCrystalID).CrystalColor, 0);

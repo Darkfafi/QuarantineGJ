@@ -16,16 +16,7 @@ public class CrystalDataCollection : ScriptableObject
 	}
 
 	[SerializeField]
-	private Projectile _defaultProjectilePrefab = null;
-
-	[SerializeField]
 	private CrystalData[] _crystalData = null;
-
-	public Projectile GetProjectilePrefab(CrystalID id)
-	{
-		CrystalData data = GetCrystalData(id);
-		return data.ProjectilePrefabOverride ?? _defaultProjectilePrefab;
-	}
 
 	public CrystalData GetCrystalData(CrystalID id)
 	{
@@ -37,7 +28,6 @@ public class CrystalDataCollection : ScriptableObject
 	{
 		public CrystalID ID;
 		public Color CrystalColor;
-		public Projectile ProjectilePrefabOverride;
 	}
 
 #if UNITY_EDITOR
