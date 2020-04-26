@@ -1,9 +1,13 @@
 ﻿using RasofiaGames.SimpleUnityECS;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlatformerMov2D : EntityComponent
 {
+	public event Action HitGroundEvent;
+	public event Action LeaveGroundEvent;
+
 	public enum Direction
 	{
 		Left = -1,
@@ -26,6 +30,8 @@ public class PlatformerMov2D : EntityComponent
 	private Collider2D _collider2D;
 
 	public bool IsGrounded => _currentFloor != null;
+	public float CurrentMoveSpeed => Mathf.Abs(_rigidbody2D.velocity.x);
+	public float VerticalVelocity => _rigidbody2D.velocity.y;
 
 	protected override void Awake()
 	{
@@ -72,6 +78,7 @@ public class PlatformerMov2D : EntityComponent
 		if(!IsGrounded)
 		{
 			_currentFloor = groundObject;
+			HitGroundEvent?.Invoke();
 		}
 	}
 
@@ -80,6 +87,7 @@ public class PlatformerMov2D : EntityComponent
 		if(IsGrounded && _currentFloor == groundObject)
 		{
 			_currentFloor = null;
+			LeaveGroundEvent?.Invoke();
 		}
 	}
 

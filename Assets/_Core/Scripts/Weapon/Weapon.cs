@@ -6,6 +6,7 @@ using static CrystalDataCollection;
 
 public class Weapon : EntityComponent
 {
+	public event Action<Weapon> AttackEvent;
 	public event Action<Weapon> SwitchedWeaponEvent;
 
 	[SerializeField]
@@ -44,12 +45,13 @@ public class Weapon : EntityComponent
 		SetCrystalColor();
 	}
 
-	public void Shoot(Vector2 direction)
+	public void Attack(Vector2 direction)
 	{
 		Projectile projectileInstance = Instantiate(DataAccessor.Instance.CrystalDataCollection.GetProjectilePrefab(CurrentCrystalID));
 		projectileInstance.transform.position = _shootOrigin.transform.position;
 		projectileInstance.Init(CurrentCrystalID);
 		projectileInstance.Fire(direction, _projectileSpeed);
+		AttackEvent?.Invoke(this);
 	}
 
 	public void CycleToNextCrystal()

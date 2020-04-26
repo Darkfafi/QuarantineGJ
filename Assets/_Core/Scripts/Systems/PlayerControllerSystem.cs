@@ -48,7 +48,7 @@ public class PlayerControllerSystem : MonoBehaviour
 
 			if(Input.GetKeyDown(KeyCode.K))
 			{
-				playerEntity.GetEntityComponent<Weapon>().Shoot(Vector2.right * playerEntity.transform.localScale.x);
+				playerEntity.GetEntityComponent<Weapon>().Attack(Vector2.right * playerEntity.transform.localScale.x);
 			}
 
 			if(Input.GetKeyDown(KeyCode.Q))
