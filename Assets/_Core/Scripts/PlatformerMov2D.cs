@@ -83,21 +83,33 @@ public class PlatformerMov2D : EntityComponent
 		}
 	}
 
-	protected void OnCollisionEnter2D(Collision2D collision)
+	protected void OnCollisionStay2D(Collision2D collision)
 	{
 		if(IsGroundHit(collision))
 		{
 			HitGround(collision.transform);
+		}
+		else
+		{
+			LeaveGround(collision.transform);
 		}
 
 		if(IsSideHit(collision, Direction.Right))
 		{
 			_rightCol = collision.transform;
 		}
+		else if(IsSideHit(Direction.Right) && _rightCol == collision.transform)
+		{
+			_rightCol = null;
+		}
 
 		if(IsSideHit(collision, Direction.Left))
 		{
 			_leftCol = collision.transform;
+		}
+		else if(IsSideHit(Direction.Left) && _leftCol == collision.transform)
+		{
+			_leftCol = null;
 		}
 	}
 
@@ -120,7 +132,7 @@ public class PlatformerMov2D : EntityComponent
 	{
 		for(int i = 0; i < collision.contacts.Length; i++)
 		{
-			if(_collider2D.bounds.center.y > collision.contacts[i].point.y && collision.contacts[i].normal.y > 0.8f)
+			if(_collider2D.bounds.center.y > collision.contacts[i].point.y && collision.contacts[i].normal.y > 0.5f)
 			{
 				return true;
 			}
@@ -146,7 +158,7 @@ public class PlatformerMov2D : EntityComponent
 	{
 		for(int i = 0; i < collision.contacts.Length; i++)
 		{
-			if(Mathf.Approximately(collision.contacts[i].normal.x, -(float)dir))
+			if(_collider2D.bounds.center.y <= collision.contacts[i].point.y && Mathf.Approximately(Mathf.Abs(collision.contacts[i].normal.x) / collision.contacts[i].normal.x, -(float)dir))
 			{
 				return true;
 			}
