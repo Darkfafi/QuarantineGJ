@@ -20,7 +20,7 @@ public class WeaponDisplayUISystem : MonoBehaviour
 	protected void Awake()
 	{
 		FilterRules weaponHolderFilterRules = FilterRulesBuilder.SetupHasTagBuilder("WeaponDisplay")
-																.AddHasComponentRule<Weapon>(true).Result();
+								.AddHasComponentRule<Weapon>(true).Result();
 
 		_weaponHolderFilter = EntityFilter.Create(weaponHolderFilterRules, OnEntityTracked, OnEntityUntracked);
 	}
